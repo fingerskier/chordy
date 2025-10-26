@@ -195,11 +195,11 @@ class BLEKeyboard:
     def key_press(self, modifier, keycodes):
         """Send a key press report with given modifier and up to six keycodes."""
         padded = keycodes + [0x00] * (6 - len(keycodes))
-        report = struct.pack("<BB6B", 0x01, modifier, *padded)
+        report = struct.pack("<BBB6B", 0x01, modifier, 0x00, *padded)
         self.send_report(report)
 
     def release_all(self):
-        report = struct.pack("<BB6B", 0x01, 0x00, 0, 0, 0, 0, 0, 0)
+        report = struct.pack("<BBB6B", 0x01, 0x00, 0x00, 0, 0, 0, 0, 0, 0)
         self.send_report(report)
 
 
